@@ -535,7 +535,7 @@ spec:
           - "-wait-for-healthcheck-interval={{ .Cluster.ConfigItems.skipper_wait_for_healthcheck_interval }}"
 {{- if and (eq .Cluster.Provider "zalando-eks") (eq .Cluster.ConfigItems.eks_ip_family "ipv6")}}
           # TODO: dynamically get the subnet range (or figure out if these are known internal addresses?)
-          - "-whitelisted-healthcheck-cidr=2a05:d014:09c0:bf00:0:0:0:0/64,2a05:d014:09c0:bf01:0:0:0:0/64,2a05:d014:09c0:bf02:0:0:0:0/64"
+          - "-whitelisted-healthcheck-cidr=2a05:d014:9c0:bf03::/64,2a05:d014:9c0:bf04::/64,2a05:d014:9c0:bf05::/64"
 {{- end }}
 {{ if eq .Cluster.ConfigItems.enable_skipper_eastwest "true"}}
           - "-enable-kubernetes-east-west"
