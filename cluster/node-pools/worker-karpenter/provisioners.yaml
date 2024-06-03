@@ -143,16 +143,7 @@ spec:
             - "c7in"
             - "m7in"
             - "r7in"
-        - key: "karpenter.k8s.aws/instance-size"
-          operator: "NotIn"
-          values:
-            - "metal"
-        # exclude instance-types with slow SSD
-        - key: "node.kubernetes.io/instance-type"
-          operator: "NotIn"
-          values:
-            - "c5d.large"
-#{{ else }}
+#{{ else if (gt (len .NodePool.InstanceTypes) 0) }}
         - key: "node.kubernetes.io/instance-type"
           operator: In
           values:
@@ -160,6 +151,28 @@ spec:
           - "{{ $type }}"
 #      {{ end }}
 #{{ end }}
+        # exclude unwanted sizes
+        - key: "karpenter.k8s.aws/instance-size"
+          operator: "NotIn"
+          values:
+            - "metal"
+        # exclude unwanted instance-types
+        - key: "node.kubernetes.io/instance-type"
+          operator: "NotIn"
+          values:
+            - "c5d.large" # too slow SSD
+        # user's custom configurations
+#{{ if (index .NodePool.ConfigItems "requirements") }}
+#    {{ range $requirement := .NodePool.KarpenterRequirements }}
+        - key: "{{ $requirement.Key }}"
+          operator: "{{ $requirement.Operator }}"
+          values:
+#         {{ range $value := $requirement.Values }}
+            - "{{ $value}}"
+#         {{ end }}
+#    {{ end }}
+#{{ end }}
+        # other configuration
         - key: "karpenter.sh/capacity-type"
           operator: In
           values:
