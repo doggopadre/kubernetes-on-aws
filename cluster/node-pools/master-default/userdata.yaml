@@ -208,7 +208,8 @@ write_files:
           lifecycle:
             preStop:
               exec:
-                command: ["/bin/sh", "-c",  " sleep 60"]
+                sleep:
+                  seconds: 60
           readinessProbe:
             httpGet:
               scheme: HTTPS
@@ -253,7 +254,8 @@ write_files:
           lifecycle:
             preStop:
               exec:
-                command: ["/bin/sh", "-c",  " sleep 60"]
+                sleep:
+                  seconds: 60
           readinessProbe:
             httpGet:
               scheme: HTTPS
@@ -278,7 +280,8 @@ write_files:
           lifecycle:
             preStop:
               exec:
-                command: ["/bin/sh", "-c",  " sleep 60"]
+                sleep:
+                  seconds: 60
           livenessProbe:
             httpGet:
               path: /healthcheck
@@ -361,7 +364,8 @@ write_files:
           lifecycle:
             preStop:
               exec:
-                command: ["/bin/sh", "-c",  " sleep 60"]
+                sleep:
+                  seconds: 60
           livenessProbe:
             httpGet:
               path: /health
@@ -391,7 +395,8 @@ write_files:
           lifecycle:
             preStop:
               exec:
-                command: ["/bin/sh", "-c",  " sleep 60"]
+                sleep:
+                  seconds: 60
           livenessProbe:
             httpGet:
               path: /health
@@ -541,7 +546,8 @@ write_files:
           lifecycle:
             preStop:
               exec:
-                command: ["/bin/sh", "-c",  " sleep 60"]
+                sleep:
+                  seconds: 60
           readinessProbe:
             httpGet:
               path: /healthz
